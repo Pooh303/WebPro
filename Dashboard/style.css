@@ -1,0 +1,464 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap'); */
+
+@font-face {
+	font-family: "Noto Sans Thai";
+	src: url('../src/font/NotoSansThai.ttf');
+	font-weight: 480;
+	font-style: normal;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	box-sizing: border-box;
+	caret-color: transparent;
+	font-family: "Noto Sans Thai", sans-serif;
+}
+
+body{
+	display: flex;
+}
+
+.sidebar{
+	position:sticky;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 240px;
+	height: 100vh;
+	padding: 2rem 1.8rem 0 1.8rem;
+	color: white;
+	transition: all 0.3s linear;
+	background: rgba(8, 120, 255, 0.8);
+}
+
+/* .sidebar:hover{
+	width:280px;
+	transition-delay: 1s;
+} */
+
+.menu{
+	height: 100%;
+	position: relative;
+	list-style: none;
+	padding: 0;
+}
+
+.menu li{
+	display: flex;
+	padding: 1rem;
+	margin: 8px 0;
+	border-radius: 10px;
+	/* transition: all 0.2s ease-in-out; */
+}
+
+.menu i{
+	display: block;
+	margin: 0 auto;
+	padding: 0 10px 0 0;
+}
+
+/* .menu li:hover {	
+	background: rgba(0, 0, 0, 0.18);
+} */
+
+.menu a{
+	color: white;
+	font-size: 1.1rem;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.menu a span{
+	overflow: hidden;
+	height: 1.5rem;
+}
+
+.menu a i{
+	font-size: 1.2rem;
+}
+
+/* Main section */
+.main--content{
+	position: relative;
+	background-color: rgba(200, 210, 200, 0.25);
+	width: 100%;
+	padding: 1rem;
+}
+
+.header--wrapper img{
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.header--wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	height: 10vh;
+	background: rgb(255, 255, 255);
+	border-radius: 10px;
+	padding: 10px 2rem;
+	margin-bottom: 1rem;
+}
+
+.wrapper-box{
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	background: rgb(255, 255, 255);
+	border-radius: 10px;
+	padding: 10px 2rem;
+	margin: 1rem 0 1rem 0;
+}
+
+.wrapper-box-column{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+	background: rgb(255, 255, 255);
+	border-radius: 10px;
+	padding: 10px 2rem;
+	margin: 1rem 0 1rem 0;
+}
+
+.header--title {
+    color: rgb(13, 135, 236);
+	font-size: 20px;
+    text-shadow: 1px 1px 1px rgb(0, 106, 255);
+}
+
+.user--info{
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	font-size: 18px;
+}
+
+.search--box{
+	border-radius: 15px;
+	width: 40vh;
+	background-color: rgba(200, 210, 200, 0.25);
+	display: flex;
+	align-items:center;
+	gap: 5px;
+	padding: 4px 12px;
+}
+.search--box input{
+	background: transparent;
+	padding: 10px;
+	border: none;
+	outline: none;
+	font-size: 1.1rem;
+	caret-color: black;
+	background: none;
+}
+
+.search--box i {
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+}
+
+.search--box i:hover{
+	transform: scale(1.2);
+}
+
+.card--container{
+	background: white;
+	padding: 2rem;
+	border-radius: 10px;
+}
+
+.card--wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.main--title{
+	color:rgb(13, 135, 235);
+	padding-bottom: 10px;
+	font-size: 24px;
+}
+
+.payment--card{
+	background: white;
+	padding: 1.2rem;
+	width: 280px;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	justify-content: space-between;
+	transition: all 0.3s ease-in-out;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment--card:hover{
+	transform: translateY(-5px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.card--header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.amount {
+	display: flex;
+	flex-direction: column;
+}
+
+.title{
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.amount--value{
+	font-size: 25px;
+	font-weight: 600;
+}
+
+.icon{
+	color:white;
+	padding: 1rem;
+	height: 60px;
+	width:60px;
+	text-align: center;
+	border-radius: 50%;
+	font-size: 1.5rem;
+	background: red;
+}
+
+.card--detail{
+	font-size: 18px;
+	color: gray;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+/* color css */
+.light-red{
+	background: rgb(251, 233, 233);
+}
+.light-purple{
+	background: rgb(254, 226, 254);
+}
+.light-green{
+	background: rgb(235, 254, 235);
+}
+.light-blue{
+	background: rgb(236, 236, 254);
+}
+.dark-red{
+	background: red;
+}
+.dark-purple{
+	background: purple;
+}
+.dark-green{
+	background: green;
+}
+.dark-blue{
+	background: blue;
+}
+
+/* table section*/
+.table-wrapper{
+	background-color: white;
+	margin-top: 1rem;
+	padding: 2rem;
+	border-radius: 10px;
+}
+
+.table-header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.table-container{
+	width: 100%;
+}
+
+table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+thead{
+	background: rgb(13, 135, 236);
+	color: white;
+}
+
+th{
+	padding: 18px;
+	text-align: left;
+	font-weight: 500;
+	font-size: 18px;
+}
+tbody{
+	background: white;
+}
+td{
+	padding: 18px;
+	font-size: 14px;
+	color: #333;
+}
+tr:nth-child(even){
+	background-color: rgba(200, 220, 255, 0.3);
+}
+tfoot{
+	background: rgb(13, 135, 236);
+	color: white;
+}
+tfoot td{
+	color: white;
+	text-align: center;
+	font-weight: 300;
+	font-size: 16px;
+	padding: 15px;
+}
+
+.table-container button{
+	color: rgb(255, 255, 255);
+	padding: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+	margin-right: 5px;
+	width: 50px;
+}
+
+.edit{
+	background: rgba(255, 160, 0, 0.8);
+}
+
+.delete{
+	background: rgba(255, 0, 0, 0.7);
+}
+
+.edit-panel{
+	display: none;
+	margin: 30px;
+	width: 300px;
+}
+
+#editForm > *{
+	margin-bottom: 15px;
+}
+
+.edit-panel input, .edit-panel select{
+	width: 100%;
+	background-color: #eaeaea;
+	border-radius: 8px;
+	padding: 10px;
+	caret-color: black;
+}
+
+.edit-panel button {
+	font-size: 16px;
+	width: 80px;
+	margin: 10px 5px 0 0;
+	padding: 10px;
+	border-radius: 8px;
+	color:white;
+	cursor: pointer;
+}
+
+.save_button{
+	background-color:rgb(30, 212, 78);
+}
+
+.close_button{
+	background-color:rgb(230, 30, 50);
+}
+#myChart {
+	padding: 2rem;
+    width: 700px;
+}
+
+
+/* ----------
+  menu.php
+------------*/
+.menu-photo{
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  /* Modal content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  /* Close button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+  .btn{
+	font-size: 16px !important;
+	margin: 0 0 0 5px !important;
+  }
+
+.fbutton{
+	display: flex;
+	flex-direction: row;
+}
+
+.table_header{
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.menu_name{
+	font-size: 16px;
+}
