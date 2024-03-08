@@ -17,8 +17,10 @@ if(isset($data)) {
         exit();
     }
 
-    $table = "SS110";
-    $data = (file_get_contents("php://input"));
+    
+    $requestData = json_decode(file_get_contents("php://input"), true);
+    $table = $requestData['tableNumber'];
+    $data = $requestData['orderData'];
     $cmd = "INSERT INTO `Order`(`Table_ID`, `Data`, `Order_Status`) VALUES ('$table', '$data', 'Empty');";
     
     if (mysqli_query($conn, $cmd)){
@@ -27,6 +29,19 @@ if(isset($data)) {
         echo "Error: " . mysqli_error($conn);
     }
     // echo "Confirm Order สำเร็จมั้ง";
+    $conn = mysqli_connect($servername, $username, $password, $database, $port);
+    $data = json_decode($data, true);
+    foreach ($data as $item) {
+        $name = $item['name'];
+        $amount = $item['amount'];
+
+        $sql = "INSERT INTO `menuhis` (`menuName`, `amount`) VALUES ('$name', '$amount');";
+        if (mysqli_query($conn, $sql)) {
+            // echo "Record added successfully<br>";
+        } else {
+            echo "Error adding record: " . mysqli_error($conn) . "<br>";
+        }
+    }
 } else {
     // ถ้าไม่มีข้อมูลถูกส่งมา
     echo "ไม่มีข้อมูลที่ถูกส่งมา";

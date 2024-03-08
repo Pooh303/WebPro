@@ -1,5 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+$servername = "10.30.9.139";
+$port = 3306;
+$username = "root";
+$password = "root";
+$database = "shabu";
+
+session_start();
+$_SESSION['count'] = 0;
+if (isset($_SESSION['count'])) {
+    $_SESSION['count'] = $_SESSION['count'] + 1;
+} else {
+    $_SESSION['count'] = 1;
+}
+
+// Save session data to a file
+file_put_contents('session_data.txt', serialize($_SESSION));
+
+
+
+
+
+// Establish connection
+$conn = mysqli_connect($servername, $username, $password, $database, $port);
+
+// Retrieve parameters from URL
+$table_id = isset($_GET['json_Table_ID']) ? $_GET['json_Table_ID'] : null;
+$session_id = isset($_GET['json_session_id']) ? $_GET['json_session_id'] : null;
+
+$sqlData = "SELECT * FROM `tables` WHERE Table_ID = $table_id;";
+$resultData = mysqli_query($conn, $sqlData);
+// Check connection
+while ($row = mysqli_fetch_assoc($resultData)) {
+    $json_session_id = $row["session_id"];
+    //$data_session_id = json_decode($json_session_id, true);
+
+    $json_Table_ID = $row["Table_ID"];
+    // $data_Table_ID = json_decode($json_Table_ID, true);
+//echo "$json_Table_ID";
+}
+
+
+
+// Validate parameters
+if ($table_id !== null && $session_id !== null) {
+    if ($table_id == "$json_Table_ID" &&  $session_id == "$json_session_id") {
+        // Redirect to Chefselect.php
+        
+    } else {
+        // Redirect to Finish.php
+        header("Location: thanks.php");
+        
+        exit(); // Ensure that script stops executing after the redirect
+    }
+} else {
+    // Handle case where parameters are not provided
+    header("Location: thanks.php");
+        exit();echo "Invalid parameters";
+}
+?>
 
 <style>
     @font-face {
@@ -129,7 +189,7 @@
         border-bottom: 1px solid black;
         margin-top: 5px;
         margin-left: 10px;
-        margin-bottom: 70px;
+        margin-bottom: 10px;
         margin-right: 10px;
     }
 
@@ -213,11 +273,12 @@
     white-space: nowrap;
     font-size: 24px;
 }
-
 .basket{
     overflow: auto;
 }
-
+#basketLabel{
+    margin-bottom: 80px;
+}
 
 </style>
 
@@ -232,9 +293,19 @@
 </head>
 <body>
     <div class="header">
-        <h1>รายการอาหาร</h1>
-    </div>
+    <nav style="color: white;">
+    <h1>รายการอาหาร<h1>
+    <?php
+    echo "<a href='Order_history.php?json_Table_ID=" . $table_id . "&json_session_id=" . $session_id . "'>";
+?>ประวัติการสั่งซื้อ</a>
+</h1>
+</h1>
+</nav>
 
+    </div>
+    <?php
+        echo"<div id=\"table_id\" value=\"$table_id\"></div>";
+    ?>
     <div class="cart" id="butt">
         <button class="button" onclick="showBasket()"><i class="fa-solid fa-cart-shopping"></i> ตะกร้าสินค้า</button>
     </div>
@@ -243,7 +314,7 @@
         <i onclick="closeBasketForm()" class="fa-solid fa-xmark close-button"></i>
         <div id="basketLabel"></div>
         <div class="basketbutton" id="basketbutton">
-            <button class="button" onclick="confirm()" name="confirm" id="confirm">ยืนยัน</button>
+            <button class="button" onclick="confirm(<?php echo $table_id; ?>)" name="confirm" id="confirm">ยืนยัน</button>
         </div>
     </div>
 

@@ -1,3 +1,17 @@
+<?php
+$servername = "10.30.9.139";
+$port = 3306;
+$username = "root";
+$password = "root";
+$database = "shabu";
+
+$conn = mysqli_connect($servername, $username, $password, $database, $port);
+
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +29,7 @@
 	<div class="main--content">
 		<?php include 'header.php'; ?>
 		<div class="card--container">
-			<h3 class="main--title">สถิติรายวัน</h3>
+			<h3 class="main--title">สถิติ</h3>
 			<div class="card--wrapper">
 				<div class="payment--card light-red">
 					<div class="card--header">
@@ -23,7 +37,13 @@
 							<span class="title">
 								จำนวนออเดอร์
 							</span>
-							<span class="amount--value">32</span>
+							<span class="amount--value"><?php 
+								$sql = "SELECT COUNT(`Order_ID`) FROM `order`;";
+								$result = mysqli_query($conn, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$total = $row['COUNT(`Order_ID`)'];
+								echo $total;
+							?></span>
 						</div>
 						<i class="fas fa-shopping-cart icon dark-red"></i>
 					</div>
@@ -37,7 +57,13 @@
 							<span class="title">
 								จำนวนผู้เข้าใช้บริการ
 							</span>
-							<span class="amount--value">17</span>
+							<span class="amount--value"><?php 
+								$sql = "SELECT SUM(`Number_of_Customer`) FROM `bill`;";
+								$result = mysqli_query($conn, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$total = $row['SUM(`Number_of_Customer`)'];
+								echo $total;
+							?></span>
 						</div>
 						<i class="fas fa-users icon dark-purple"></i>
 					</div>
@@ -51,12 +77,40 @@
 							<span class="title">
 								จำนวนเงิน
 							</span>
-							<span class="amount--value">2537.00</span>
+							<span class="amount--value"><?php 
+								$sql = "SELECT SUM(`Price`) FROM `bill`;";
+								$result = mysqli_query($conn, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$total = $row['SUM(`Price`)'];
+								echo $total;
+							?>
+							</span>
 						</div>
 						<i class="fas fa-dollar-sign icon dark-blue"></i>
 					</div>
 					<span class="card--detail">
 						บาท
+					</span>
+				</div>
+				<div class="payment--card light-red">
+					<div class="card--header">
+						<div class="amount">
+							<span class="title">
+								เมนูขายดี
+							</span>
+							<span class="amount--value">
+								<?php
+									$sql = "select menuName , SUM(amount) from menuhis m group by menuName order by amount desc limit 1;";
+									$result = mysqli_query($conn, $sql);
+									$row = mysqli_fetch_assoc($result);
+									echo $row['menuName'];
+								?>
+							</span>
+						</div>
+						<i class="fa-solid fa-bowl-food icon dark-red"></i>
+					</div>
+					<span class="card--detail">
+						อันดับ#1
 					</span>
 				</div>
 				<div class="payment--card light-green">
@@ -65,7 +119,13 @@
 							<span class="title">
 								รายการที่สำเร็จ
 							</span>
-							<span class="amount--value">8</span>
+							<span class="amount--value"><?php 
+								$sql = "SELECT COUNT(`Order_Status`) FROM `order` WHERE order_Status = 'serve';";
+								$result = mysqli_query($conn, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$total = $row['COUNT(`Order_Status`)'];
+								echo $total;
+							?></span>
 						</div>
 						<i class="fas fa-check-circle icon dark-green"></i>
 					</div>
@@ -75,11 +135,10 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="table-wrapper">
 			<div class="table-header">
 				<h3 class="main--title">
-					ข้อมูลการเงิน
+					ข้อมูลรายการสั่งอาหาร
 				</h3>
 				<div class="search--box">
 					<i class="fa-solid fa-magnifying-glass"></i>
@@ -90,105 +149,57 @@
 				<table id="dataTable">
 					<thead>
 						<tr>
-							<th>ไอดี</th>
-							<th>วันที่</th>
-							<th>ประเภท</th>
-							<th>จำนวนเงิน</th>
+							<th>ไอดีออเดอร์</th>
+							<th>ไอดีโต๊ะ</th>
+							<th>รายการ</th>
 							<th>สถานะ</th>
-							<th>การดำเนินการ</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td id="ids">49024</td>
-							<td>2023-02-01 12:21</td>
-							<td>รายจ่าย</td>
-							<td>500.00</td>
-							<td>กำลังดำเนินการ</td>
-							<td>
-								<button class="action--btn edit" onclick="open_edit(this)">
-									<i class="fas fa-edit"></i>
-								</button>
-								<button class="action--btn delete">
-									<i class="fas fa-trash"></i>
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td id="ids">25021</td>
-							<td>2023-03-01 12:34</td>
-							<td>รายจ่าย</td>
-							<td>500.00</td>
-							<td>กำลังดำเนินการ</td>
-							<td>
-								<button class="action--btn edit" onclick="open_edit(this)">
-									<i class="fas fa-edit"></i>
-								</button>
-								<button class="action--btn delete">
-									<i class="fas fa-trash"></i>
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td id="ids">15080</td>
-							<td>2023-05-01 01:23</td>
-							<td>รายจ่าย</td>
-							<td>500.00</td>
-							<td>กำลังดำเนินการ</td>
-							<td>
-								<button class="action--btn edit" onclick="open_edit(this)">
-									<i class="fas fa-edit"></i>
-								</button>
-								<button class="action--btn delete">
-									<i class="fas fa-trash"></i>
-								</button>
-							</td>
-						</tr>
+					<?php
+
+						$statusMapping = array(
+							'Empty' => 'ว่าง',
+							'Doing' => 'กำลังทำ',
+							'Finish' => 'เสร็จแล้ว',
+							'Serve' => 'บริการ',
+						);
+
+						$sqlData = "SELECT * FROM `Order` ORDER BY Order_ID DESC;";
+						$resultData = mysqli_query($conn, $sqlData);
+						if ($resultData && mysqli_num_rows($resultData) > 0) {
+							while ($row = mysqli_fetch_assoc($resultData)) {
+								echo "<tr>";
+								echo "<td id='ids'>" . $row['Order_ID'] . "</td>";
+								echo "<td>" . $row['Table_ID'] . "</td>";
+
+								$Data = json_decode($row['Data'], true);
+								if (is_array($Data)) {
+									$itemString = "";
+									foreach ($Data as $item) {
+										$itemString .= $item['name'] . " x" . $item['amount'] . ", ";
+									}
+									$itemString = rtrim($itemString, ", ");
+									echo "<td>" . $itemString . "</td>";
+								} else {
+									echo "<td></td>";
+								}
+
+								$status = isset($statusMapping[$row['Order_Status']]) ? $statusMapping[$row['Order_Status']] : $row['Order_Status'];
+        						echo "<td>" . $status . "</td>";
+								echo "</tr>";
+							}
+						} else {
+							echo "<tr><td colspan='5'>No food items found</td></tr>";
+						}
+					?>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="6">ยอดรวมสุทธิ : 1500.00 บาท</td>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
 		</div>
 	</div>
 	<?php include 'edit-panel.php'; ?>
 <script>
-    function open_edit(btn) {
-        var row = btn.closest("tr");
-        var date = row.cells[0].innerText;
-        var type = row.cells[1].innerText;
-        var category = row.cells[2].innerText;
-        var amount = row.cells[3].innerText;
-        var status = row.cells[4].innerText;
-
-        document.getElementById("transactionDate").value = date;
-        document.getElementById("transactionType").value = type;
-        document.getElementById("transactionCategory").value = category;
-        document.getElementById("transactionAmount").value = amount;
-        document.getElementById("transactionStatus").value = status;
-
-        document.getElementById("editWindow").style.display = "block";
-    }
-
-	function formatDateForInput(dateString) {
-    	// Input format: "YYYY-MM-DD HH:MM"
-		var dateParts = dateString.split(' ')[0].split('-');
-		var timeParts = dateString.split(' ')[1].split(':');
-		// Create a date object with the date parts
-		var dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], timeParts[0], timeParts[1]);
-		// Format to "YYYY-MM-DDTHH:MM"
-		var formattedDate = dateObject.toISOString().slice(0, 16);
-
-		return formattedDate;
-	}
-
-    function close_edit() {
-        document.getElementById("editWindow").style.display = "none";
-    }
-
 	function searchById() {
 		var input, filter, table, tr, td, i, txtValue;
 		input = document.getElementById("searchByIdInput");

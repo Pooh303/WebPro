@@ -18,30 +18,6 @@
 				<span>เมนู</span>
 			</li>
 		</a>
-		<a href="employees.php">
-			<li class="">
-				<i class="fas fa-address-card"></i>
-				<span>พนักงาน</span>
-			</li>
-		</a>
-		<a href="contact.php">
-			<li class="">
-				<i class="fas fa-envelope"></i>
-				<span>ติดต่อ</span>
-			</li>
-		</a>
-		<a href="service.php">
-			<li class="">
-				<i class="fas fa-cogs"></i>
-				<span>Services</span>
-			</li>
-		</a>
-		<a href="gallery.php">
-			<li class="">
-				<i class="fas fa-images"></i>
-				<span>แกลเลอรี่</span>
-			</li>
-		</a>
 		<a href="logout.php">
 			<li id="logout-btn">
 				<i class="fas fa-sign-out-alt"></i>

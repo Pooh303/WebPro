@@ -18,7 +18,9 @@
     <?php include 'header.php'; ?>
     <div class="wrapper-box">
       <canvas id="myChart" class="graph"></canvas>
-      <canvas id="doughnutChart" class="graph"></canvas>
+    </div>
+    <div class="wrapper-box">
+    <canvas id="doughnutChart" class="graph"></canvas>
     </div>
   </div>
 

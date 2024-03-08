@@ -1,7 +1,8 @@
+<!-- payment.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ตาราง</title>
   <link rel="icon" type="image/x-icon" href="../src/cells.png">
@@ -45,8 +46,7 @@
       margin: 10px 5px;
       border-radius: 15px;
     }
-  </style>
-</head>
+  </style></head>
 <body>
   <div class="container">
     <div class="row justify-content-center">
@@ -62,7 +62,7 @@
 
         $conn = mysqli_connect($servername, $username, $password, $database, $port);
 
-        if(isset($_SESSION['table_id'])) {
+        if (isset($_SESSION['table_id'])) {
             $table_id = $_SESSION['table_id'];
             echo '<h1>QR Code สำหรับชำระเงิน</h1>';
 
@@ -83,20 +83,17 @@
             echo '<button type="submit" name="delete_bill" class="btn btn-danger mt-3"><i class="fa-solid fa-trash"></i>ลบข้อมูล</button>';
             echo '</form>';
 
-            if(isset($_POST['delete_bill'])) {
+            if (isset($_POST['delete_bill'])) {
                 $table_id = $_POST['table_id'];
 
-                $delete_bill_query = "DELETE FROM bill WHERE Table_ID = '$table_id'";
-                mysqli_query($conn, $delete_bill_query) or die(mysqli_error($conn));
-
-                $delete_session_query = "UPDATE tables SET session_id = NULL WHERE Table_ID = '$table_id'";
+               
+                $delete_session_query = "UPDATE tables SET session_id = NULL ,table_status = null , Bill_ID = NULL  WHERE Table_ID = '$table_id'";
                 mysqli_query($conn, $delete_session_query) or die(mysqli_error($conn));
 
                 header("Location: table.php");
                 exit();
-
-            } else if(isset($_POST['cancel_bill'])) {
-                $table_id = $_POST['table_id'];
+            } else if (isset($_POST['cancel_bill'])) {
+                
                 header("Location: table.php");
                 exit();
             }

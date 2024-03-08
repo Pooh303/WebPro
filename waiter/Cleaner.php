@@ -71,7 +71,8 @@
             if ($row['cleaner'] == 1 ) {
                 echo "<div class='card'>";
                 echo "<h3>โต๊ะ $data_Table_ID</h3>";
-                echo "<button class=\"btn btn-outline-danger\" onclick=\"confirmAction()\">ทำความสะอาดโต๊ะแล้ว</button><br>";
+                echo '<button class="btn btn-outline-danger" onclick="window.location.href = \'checkclear.php?data_table_ID=' . $json_Table_ID . '\';">ยังไม่มีคนทำ</button>';
+
                     echo "</div>";
                 }
         
@@ -80,18 +81,14 @@
     mysqli_close($conn);
     
 
-
-   
+    
 ?>
   </div>      
 </div>
-<script>
-function confirmAction() {
-    if (confirm("ทำความสะอาดโต๊ะเสร็จแล้ว")) {
-        window.location.href = 'checkclear.php?data=<?php echo urlencode(json_encode($data_Table_ID)); ?>&data_table_ID=<?php echo urlencode(json_encode($data_Table_ID)); ?>';
-    }
-}
-</script>
+
+        
+    
+
 
 </body>
 </html>

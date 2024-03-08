@@ -1,0 +1,1 @@
+a:5:{s:8:"table_id";s:2:"27";s:5:"count";i:1;s:10:"admin_name";s:15:"ภูวิศ";s:14:"admin_surename";s:45:"ตั้งถาวรสิริกุล";s:13:"admin_profile";s:190:"https://cdn.discordapp.com/attachments/699878120421064796/1212081010678824960/20240227_235704.jpg?ex=65f08968&is=65de1468&hm=451c4698fbfc50e23d4a809021dd762124ddb974d29ec11b779a0fb0ed2015ca&";}

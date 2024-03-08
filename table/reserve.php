@@ -22,13 +22,21 @@ if (isset($_POST['confirm_reservation'])) {
         $current_bill_id = $bill_row['max_bill_id'];
         $new_bill_id = $current_bill_id + 1;
 
-        $update_table_query = "UPDATE tables SET table_status = 'full', Bill_ID = $new_bill_id WHERE Table_ID = '$table_id'";
+        $update_table_query = "UPDATE tables SET table_status = 'full', Bill_ID = $new_bill_id , cleaner = '1' WHERE Table_ID = '$table_id'";
         mysqli_query($connect, $update_table_query);
 
         $insert_bill_query = "INSERT INTO bill (Table_ID, Bill_ID, Price, Number_of_Customer) VALUES ('$table_id', $new_bill_id, $price, $guests)";
         mysqli_query($connect, $insert_bill_query);
+        //echo '<script>window.open("generate.php?tableID=' . $table_id . '", "_blank");</script>';
+        echo '<script>
+        // รอให้สคริปต์ทำงานเสร็จก่อนจึงเปิดหน้า generate.php
+        setTimeout(function() {
+            window.open("generate.php?tableID=' . $table_id . '", "_blank");
+            // เมื่อเสร็จสามารถเปิดหน้า table.php
+            window.location.href = "table.php";
+        }, 1000); // ระยะเวลารอ 1 วินาที (1000 milliseconds)
+    </script>';
 
-        header("Location: table.php");
         exit();
     } catch (Exception $e) {
         echo "An error occurred: " . $e->getMessage();
@@ -41,6 +49,8 @@ if (isset($_POST['confirm_reservation'])) {
 <head>
     <title>จองโต๊ะ</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
     <style>
         @font-face {
             font-family: "Noto Sans Thai";

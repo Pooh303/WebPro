@@ -8,7 +8,6 @@ $database = "shabu";
 
 $connect = mysqli_connect($servername, $username, $password, $database, $port) or die(mysqli_error($connect));
 
-// เรียกใช้ session_start() เพื่อใช้งาน session
 session_start();
 
 if (isset($_POST['reserve_table'])) {
@@ -19,15 +18,11 @@ if (isset($_POST['reserve_table'])) {
     $table_info = mysqli_fetch_assoc($check_result);
 
     if ($table_info['table_status'] == "full") {
-        $delete_query = "UPDATE tables SET table_status = NULL, Bill_ID = NULL WHERE Table_ID = '$table_id'";
-        mysqli_query($connect, $delete_query) or die(mysqli_error($connect));
-
+       
         echo '<script>alert("ลบสถานะและ Bill_ID เรียบร้อยแล้ว")</script>';
 
-        // เก็บค่า table_id ใน session
         $_SESSION['table_id'] = $table_id;
 
-        // ไปที่หน้า payment.php โดยใช้ PHP
         header("Location: payment.php");
         exit();
     } else {
@@ -127,7 +122,6 @@ if (isset($_POST['reserve_table'])) {
         </table>
     </div>
 
-    <!-- Modal -->
     <div class="modal fade" id="reserveModal" tabindex="-1" role="dialog" aria-labelledby="reserveModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -156,11 +150,8 @@ if (isset($_POST['reserve_table'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function(){
-            // Add click event listener to the "จอง" buttons
             $('.reserve-btn').click(function(e){
-                e.preventDefault(); // Prevent default form submission
-
-                // Get the table ID and set it in the hidden input field of the modal form
+                e.preventDefault();
                 var tableId = $(this).data('table-id');
                 $('#table_id').val(tableId);
             });

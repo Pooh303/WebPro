@@ -15,19 +15,19 @@
 	font-style: normal;
 }
 * {
-    cursor: pointer;
     caret-color: transparent;
     font-family: "Noto Sans Thai", sans-serif;
 }
     .container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* ระบุขนาดของ column ให้เป็น auto-fill และ minmax เพื่อให้คอลัมน์ปรับขนาดตามหน้าจอ */
-    gap: 20px; /* เพิ่มช่องว่างระหว่างการ์ด */
-    justify-content: center; /* จัดการ์ดให้อยู่ตรงกลาง */
-    align-items: center; /* จัดการ์ดให้อยู่ตรงกลาง */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 20px; 
+    justify-content: center;
+    align-items: center; 
 }
 
 .card {
+    cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
@@ -35,13 +35,13 @@
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 300px; /* ปรับขนาดของการ์ดตามต้องการ */
+    max-width: 300px; 
     transition: transform 0.3s ease;
 }
 
 
 .card:hover {
-    transform: translateY(-5px); /* เพิ่มการเคลื่อนไหวเมื่อ hover */
+    transform: translateY(-5px); 
 }
 .head{
     text-align: center;
@@ -80,7 +80,8 @@
                 echo "<div class='card'>";
                 echo "<h3>ออเดอร์ $Order_ID_array</h3>";
     
-                if ($row['Order_Status'] !== "Doing" ) {   echo "<button class=\"btn btn-outline-danger\" onclick=\"window.location.href='Doing.php?data=" . urlencode(json_encode($data_array)) . 
+                if ($row['Order_Status'] !== "Doing" ) {   echo "<button class=\"btn btn-outline-danger\" 
+                    onclick=\"window.location.href='Doing.php?data=" . urlencode(json_encode($data_array)) . 
                     "&data_order_ID=" . urlencode(json_encode($Order_ID_array)) . "'\">ยังไม่มีคนทำ</button><br>";
                 } else {
                     echo "<button class=\"btn btn-warning\" disabled>กำลังทำ</button><br>";

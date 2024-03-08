@@ -118,7 +118,7 @@ function increase(x) {
         localStorage.setItem("data", JSON.stringify(basket));
     }
 }
- 
+
 function decrease(x) {
     let id = parseInt(x);
     if (isNaN(id)) {
@@ -153,7 +153,7 @@ function removeitem(x) {
     generatecartitems();
 }
 
-function confirm() {
+function confirm(number) {
     var xhr = new XMLHttpRequest();
 
     // กำหนด method และ URL ที่ต้องการส่งข้อมูลไป
@@ -170,8 +170,12 @@ function confirm() {
         }
     };
 
-    // ส่งข้อมูลไปยัง confirm_order.php
-    xhr.send(localStorage.getItem('data'));
+    var dataToSend = {
+        tableNumber: number,
+        orderData: localStorage.getItem('data')
+    };
+
+    xhr.send(JSON.stringify(dataToSend));
 
     // Show the overlay
     document.getElementById("overlay").style.display = "flex";

@@ -15,17 +15,31 @@ if (!$conn) {
 if(isset($_POST['submit'])){
     $editMenuName = $_POST['add_menuName'];
     $editMenuDescription = $_POST['add_menuDescription'];
-    $menuImage = $_FILES['menuImage']['name'];
-    $tempName = $_FILES['menuImage']['tmp_name'];
 
-    $targetDir = "../MenuOrder/img/menu/";
-    $targetFile = $targetDir . basename($menuImage);
+    if(isset($_FILES['menuImage']) && $_FILES['menuImage']['error'] === UPLOAD_ERR_OK) {
+        $menuImage = $_FILES['menuImage']['name'];
+        $tempName = $_FILES['menuImage']['tmp_name'];
 
-    if(move_uploaded_file($tempName, $targetFile)){
-        $sql = "INSERT INTO Menu (Menu_Name, Menu_Description, Menu_Image) VALUES ('$editMenuName', '$editMenuDescription', '$menuImage')";
-        $result = mysqli_query($conn, $sql);
+        $targetDir = "../MenuOrder/img/menu/";
+        $targetFile = $targetDir . basename($menuImage);
+
+        if(move_uploaded_file($tempName, $targetFile)){
+            $sql = "INSERT INTO Menu (Menu_Name, Menu_Description, Menu_Image) VALUES ('$editMenuName', '$editMenuDescription', '$menuImage')";
+        } else {
+            $sql = "INSERT INTO Menu (Menu_Name, Menu_Description, Menu_Image) VALUES ('$editMenuName', '$editMenuDescription', 'spoon.png')";
+        }
+    } else {
+        
+        $sql = "INSERT INTO Menu (Menu_Name, Menu_Description, Menu_Image) VALUES ('$editMenuName', '$editMenuDescription', 'spoon.png')";
     }
-    header("Location: menu.php");
+
+    $result = mysqli_query($conn, $sql);
+    if(!$result) {
+        echo "Error: " . mysqli_error($conn);
+    } else {
+        header("Location: menu.php");
+        exit();
+    }
 }
 
 $sqlData = "SELECT * FROM `Menu`;";
